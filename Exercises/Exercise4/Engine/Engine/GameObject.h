@@ -3,7 +3,8 @@
 #include <list>
 #include <memory>
 #include <string>
-
+#include <glm/glm.hpp>
+#include <SDL.h>
 #include "sre/SpriteBatch.hpp"
 
 namespace MyEngine {
@@ -18,9 +19,9 @@ namespace MyEngine {
 		float rotation;
 
 		void Init();
-		void Update(float);
-		void Render(sre::SpriteBatch::SpriteBatchBuilder&);
-		void KeyEvent(SDL_Event&);
+		virtual void Update(float);
+		virtual void Render(sre::SpriteBatch::SpriteBatchBuilder&);
+		virtual void KeyEvent(SDL_Event&);
 
 		void AddChild(std::shared_ptr<GameObject>);
 		void AddComponent(std::shared_ptr<Component>);

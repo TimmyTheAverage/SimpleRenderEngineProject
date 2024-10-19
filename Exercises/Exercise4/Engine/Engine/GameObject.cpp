@@ -36,6 +36,7 @@ namespace MyEngine {
 		for (auto& component : _components)
 			component->KeyEvent(e);
 
+
 		for (auto& child : _children)
 			child->KeyEvent(e);
 	}
