@@ -128,3 +128,6 @@ mark_as_advanced(
 mark_as_advanced(
 	SDL2MAIN_LIBRARY
 )
+
+# add this here 
+add_subdirectory(Exercises/Exercise4)
