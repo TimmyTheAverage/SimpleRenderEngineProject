@@ -42,7 +42,9 @@ int main() {
 	renderer.startEventLoop();
 }
 
-void ProcessEvents(SDL_Event& event) { }
+void ProcessEvents(SDL_Event& event) { 
+	engine.ProcessEvents(event);
+}
 
 void Update(float deltaTime) {
 	engine.Update(deltaTime);
