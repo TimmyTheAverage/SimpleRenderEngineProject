@@ -1,4 +1,4 @@
-// Asteroid.h
+
 #pragma once
 #include "Engine/GameObject.h"
 
