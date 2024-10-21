@@ -30,22 +30,16 @@ namespace ExampleGame {
 			case SDLK_w: {
 				// Handle movement
 				float angleRad = glm::radians(parent->rotation);
-				glm::vec2 direction = glm::vec2(glm::cos(angleRad), glm::sin(angleRad));
+				glm::vec2 direction = glm::vec2(glm::sin(angleRad), -glm::cos(angleRad));
 				parent->position += direction * MovSpeed;
 				break;
 			}
 			case SDLK_a: {
-				parent->rotation -= RotSpeed;
-				break;
-			}
-			case SDLK_d: {
 				parent->rotation += RotSpeed;
 				break;
 			}
-			case SDLK_s: {
-				float angleRad = glm::radians(parent->rotation);
-				glm::vec2 direction = glm::vec2(glm::cos(angleRad), glm::sin(angleRad));
-				parent->position -= direction * MovSpeed;
+			case SDLK_d: {
+				parent->rotation -= RotSpeed;
 				break;
 			}
 			case SDLK_SPACE: {
@@ -59,24 +53,27 @@ namespace ExampleGame {
 	}
 
 	void ComponentController::ShootBullet() {
-		std::cout << "Shoot Bullet" << std::endl;
 		MyEngine::GameObject* parent = GetGameObject();
+
+		// Create a new bullet object
 		auto bullet = std::make_shared<Bullet>();
 
-		// Set bullet's initial position to parent's position
-		bullet->SetPosition(parent->position);
+		// Set bullet's position to parent's position
+		bullet->position = parent->position;
 
 		// Set bullet's direction based on parent's rotation
 		float angleRad = glm::radians(parent->rotation);
 		glm::vec2 direction = glm::vec2(glm::cos(angleRad), glm::sin(angleRad));
 		bullet->SetDirection(direction);
 
-		// Attach a sprite to the bullet
-		auto bulletSpriteRenderer = std::make_shared<ExampleGame::ComponentRendererSprite>();
-		bulletSpriteRenderer->sprite = atlas->get("bullet.png"); // Use correct bullet sprite
-		bullet->AddComponent(bulletSpriteRenderer);
+		// Attach a sprite renderer to the bullet
+		auto bulletRenderer = std::make_shared<ComponentRendererSprite>();
+		bulletRenderer->sprite = atlas->get("beam0.png");
+		bullet->AddComponent(bulletRenderer);
 
-		// Add bullet to the parent or the game world
+		// Add the bullet to the game world
 		parent->AddChild(bullet);
+
+		std::cout << "Bullet shot at position: (" << bullet->position.x << ", " << bullet->position.y << ")" << std::endl;
 	}
 }

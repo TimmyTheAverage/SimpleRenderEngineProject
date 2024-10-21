@@ -1,26 +1,23 @@
 #pragma once
 #include "Engine/GameObject.h"
 #include <glm/glm.hpp>
+#include <SDL.h>
+#include <iostream>
 
 class Bullet : public MyEngine::GameObject {
 public:
-    void SetPosition(const glm::vec2& pos) {
-        position = pos;
+    void Init(){}
+
+    void Update(float deltaTime) override {
+        // Move bullet in the set direction
+        position += direction * speed * deltaTime;
     }
 
     void SetDirection(const glm::vec2& dir) {
         direction = dir;
     }
 
-    void Update(float deltaTime) override {
-        position += direction * speed * deltaTime;
-    }
-
-    void KeyEvent(SDL_Event& event) override {
-        // Handle key events if needed
-    }
-
 private:
-    glm::vec2 direction;
-    float speed = 200.0f; // Adjust the speed as needed
+    glm::vec2 direction = glm::vec2(0.0f, 0.0f);  // Direction of the bullet
+    float speed = 300.0f;  // Bullet speed, can be adjusted as needed
 };
