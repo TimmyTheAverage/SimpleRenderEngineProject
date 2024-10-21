@@ -1,5 +1,6 @@
 #include "Bullet.h"
 #include "Engine/MyEngine.h"
+#include "GameObject.h"
 #include "Engine/GameObject.h"
 #include <iostream>
 #include <glm/glm.hpp>
@@ -17,8 +18,9 @@ void Bullet::Update(float deltaTime) {
 	MyEngine::GameObject* parent = GetGameObject();
 	lifetime += deltaTime;
 	if (lifetime > 2.0f) {
-		//Destroy using the RemoveFromParent function
-		parent->RemoveFromParent();
+		
+		parent->MarkedForDeletion = true;
+		
 	}
 	// Get direction from parent
 	// Handle movement

@@ -67,7 +67,7 @@ namespace MyEngine {
     void GameObject::RemoveFromParent() {
         if (auto parent = _parent.lock()) {
             parent->_children.remove_if([this](std::shared_ptr<GameObject> child) {
-                return child == _self.lock();
+                return child == (_self.lock());
                 });
         }
     }
