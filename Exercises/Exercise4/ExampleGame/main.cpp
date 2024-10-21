@@ -6,6 +6,11 @@
 #include "Game/ComponentController.h"
 #include "Game/ComponentRendererSprite.h"
 
+#include "Game/Asteroid.h"
+#include <vector>
+#include <cstdlib>
+#include <ctime>
+
 void InitGame();
 void ProcessEvents(SDL_Event& event);
 void Update(float deltaTime);
