@@ -54,26 +54,14 @@ namespace ExampleGame {
 
 	void ComponentController::ShootBullet() {
 		MyEngine::GameObject* parent = GetGameObject();
-
-		// Create a new bullet object
-		auto bullet = std::make_shared<Bullet>();
-
-		// Set bullet's position to parent's position
-		bullet->position = parent->position;
-
-		// Set bullet's direction based on parent's rotation
-		float angleRad = glm::radians(parent->rotation);
-		glm::vec2 direction = glm::vec2(glm::cos(angleRad), glm::sin(angleRad));
-		bullet->SetDirection(direction);
-
-		// Attach a sprite renderer to the bullet
+		auto bullet = engine->CreateGameObject("Bullet");
+		auto bulletComponent = std::make_shared<Bullet>();
 		auto bulletRenderer = std::make_shared<ComponentRendererSprite>();
-		bulletRenderer->sprite = atlas->get("beam0.png");
+		bullet->AddComponent(bulletComponent);
 		bullet->AddComponent(bulletRenderer);
+		bullet->position = parent->position;
+		bullet->rotation = parent->rotation;
+		bulletRenderer->sprite = atlas->get("laserBlue01.png");
 
-		// Add the bullet to the game world
-		parent->AddChild(bullet);
-
-		std::cout << "Bullet shot at position: (" << bullet->position.x << ", " << bullet->position.y << ")" << std::endl;
 	}
 }

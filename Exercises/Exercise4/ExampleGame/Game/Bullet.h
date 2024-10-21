@@ -3,21 +3,14 @@
 #include <glm/glm.hpp>
 #include <SDL.h>
 #include <iostream>
+#include "Engine/Component.h"
 
-class Bullet : public MyEngine::GameObject {
+class Bullet : public MyEngine::Component {
 public:
-    void Init(){}
-
-    void Update(float deltaTime) override {
-        // Move bullet in the set direction
-        position += direction * speed * deltaTime;
-    }
-
-    void SetDirection(const glm::vec2& dir) {
-        direction = dir;
-    }
+    void Init() override;
+    void Update(float deltaTime) override;
+	const float speed = 300.0f;
 
 private:
-    glm::vec2 direction = glm::vec2(0.0f, 0.0f);  // Direction of the bullet
-    float speed = 300.0f;  // Bullet speed, can be adjusted as needed
+	float lifetime = 0.0f;
 };
