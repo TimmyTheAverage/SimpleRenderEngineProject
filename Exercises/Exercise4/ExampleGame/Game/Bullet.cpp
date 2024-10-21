@@ -17,8 +17,8 @@ void Bullet::Update(float deltaTime) {
 	MyEngine::GameObject* parent = GetGameObject();
 	lifetime += deltaTime;
 	if (lifetime > 2.0f) {
-		//Destroy the bullet
-
+		//Destroy using the RemoveFromParent function
+		parent->RemoveFromParent();
 	}
 	// Get direction from parent
 	// Handle movement

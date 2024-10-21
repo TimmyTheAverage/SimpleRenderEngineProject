@@ -6,6 +6,8 @@
 #include <glm/glm.hpp>
 #include <SDL.h>
 #include "sre/SpriteBatch.hpp"
+#include "vector"
+#include "Component.h"
 
 namespace MyEngine {
 	class Component;
@@ -19,15 +21,17 @@ namespace MyEngine {
 		float rotation;
 
 		void Init();
-		virtual void Update(float);
+		virtual void Update(float deltatime);
 		virtual void Render(sre::SpriteBatch::SpriteBatchBuilder&);
 		virtual void KeyEvent(SDL_Event&);
 
 		void AddChild(std::shared_ptr<GameObject>);
-		void AddComponent(std::shared_ptr<Component>);
+		void AddComponent(std::shared_ptr<Component> component);
 
 		std::string GetName();
 		void SetName(std::string);
+		void RemoveFromParent();
+		bool MarkedForDeletion = false;
 
 		// private fields
 	private:
@@ -36,5 +40,6 @@ namespace MyEngine {
 		std::list<std::shared_ptr<GameObject>> _children = {};
 		std::list< std::shared_ptr<Component>> _components = {};
 		std::string _name;
+
 	};
 }

@@ -16,7 +16,7 @@ namespace MyEngine {
 
 	public:
 		virtual void Init() {};
-		virtual void Update(float) {};
+		virtual void Update(float deltatime) {};
 		virtual void Render(sre::SpriteBatch::SpriteBatchBuilder&) {};
 		virtual void KeyEvent(SDL_Event&) {};
 

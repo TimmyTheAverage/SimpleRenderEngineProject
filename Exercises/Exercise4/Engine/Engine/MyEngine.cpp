@@ -3,6 +3,7 @@
 #include <random>
 
 #include "sre/RenderPass.hpp"
+#include "gameObject.h"
 
 namespace MyEngine {
 	Engine* Engine::_instance = nullptr;
@@ -37,6 +38,7 @@ namespace MyEngine {
 		++frame;
 		time += deltaTime;
 		_root->Update(deltaTime);
+		Cleanup();
 	}
 
 	void Engine::Render()
@@ -62,5 +64,32 @@ namespace MyEngine {
 		_root->AddChild(ret);
 
 		return ret.get();
+	}
+
+	void Engine::Cleanup() {
+		std::vector<std::shared_ptr<GameObject>> toDelete;
+
+		// Recursive lambda to traverse the scene graph
+		std::function<void(std::shared_ptr<GameObject>)> traverse = [&](std::shared_ptr<GameObject> obj) {
+			// Check if the current object is marked for deletion
+			if (obj->MarkedForDeletion) {
+				toDelete.push_back(obj);
+			}
+			// Traverse children
+			for (const auto& child : obj->_children) {
+				traverse(child);
+			}
+			};
+
+		// Start traversal from the root
+		traverse(_root);
+
+		// Remove and cleanup marked objects
+		for (const auto& obj : toDelete) {
+			obj->RemoveFromParent(); // Assuming this method exists
+		}
+
+		// Optionally clear the toDelete vector
+		toDelete.clear();
 	}
 }

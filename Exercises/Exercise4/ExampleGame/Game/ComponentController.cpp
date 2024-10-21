@@ -62,6 +62,5 @@ namespace ExampleGame {
 		bullet->position = parent->position;
 		bullet->rotation = parent->rotation;
 		bulletRenderer->sprite = atlas->get("laserBlue01.png");
-
 	}
 }
