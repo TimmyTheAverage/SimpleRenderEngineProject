@@ -1,5 +1,5 @@
-#include "ComponentController.h"
-
+﻿#include "ComponentController.h"
+#include <cmath>
 #include "Engine/MyEngine.h"
 
 namespace ExampleGame {
@@ -15,8 +15,28 @@ namespace ExampleGame {
 		MyEngine::Engine* engine = MyEngine::Engine::GetInstance();
 		MyEngine::GameObject* parent = GetGameObject();
 
+		// Update rotation
 		parent->rotation += RotSpeed * deltaTime * rotationDirection;
-		parent->position += MovDirection * MovSpeed * deltaTime * acceleration;
+
+		// Convert rotation angle to direction vector subtracting 90 degrees (π/2 radians)
+		float angleInRadians = glm::radians(parent->rotation) - M_PI / 2.0f;
+		glm::vec2 direction(cos(angleInRadians), sin(angleInRadians));
+
+		// Update position
+		parent->position += direction * MovSpeed * deltaTime * acceleration;
+
+		if (parent->position.x > engine->GetScreenSize().x + 25) {
+			parent->position.x = -25;
+		}
+		else if (parent->position.y > engine->GetScreenSize().y + 25) {
+			parent->position.y = -25;
+		}
+		else if (parent->position.x < -25) {
+			parent->position.x = engine->GetScreenSize().x + 25;
+		}
+		else if (parent->position.y < -25) {
+			parent->position.y = engine->GetScreenSize().y + 25;
+		}
 	}
 
 	void ComponentController::KeyEvent(SDL_Event& event) {
@@ -35,6 +55,10 @@ namespace ExampleGame {
 				break;
 			case SDLK_d:
 				rotationDirection = -1;
+				break;
+			case SDLK_SPACE:
+				//instansiate laser
+					
 				break;
 			}
 		}

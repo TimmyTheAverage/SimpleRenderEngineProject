@@ -28,6 +28,9 @@ namespace MyEngine {
 		std::string GetName();
 		void SetName(std::string);
 
+		bool LowTierGod = false;
+		void DestroyThySelf();
+
 		// private fields
 	private:
 		std::weak_ptr<GameObject> _parent;

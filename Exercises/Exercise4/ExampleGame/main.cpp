@@ -5,6 +5,7 @@
 
 #include "Game/ComponentController.h"
 #include "Game/ComponentRendererSprite.h"
+#include "Game/LaserController.h"
 
 void InitGame();
 void ProcessEvents(SDL_Event& event);
@@ -32,8 +33,10 @@ int main() {
 	auto gameObject = engine.CreateGameObject("Player");
 	auto componentController = std::shared_ptr<ExampleGame::ComponentController>(new ExampleGame::ComponentController());
 	auto componentRenderer = std::make_shared<ExampleGame::ComponentRendererSprite>();
+	auto laserController = std::make_shared<ExampleGame::LaserController>();
 	gameObject->AddComponent(componentController);
 	gameObject->AddComponent(componentRenderer);
+	gameObject->AddComponent(laserController);
 
 	componentRenderer->sprite = atlas->get("enemyBlue3.png");
 

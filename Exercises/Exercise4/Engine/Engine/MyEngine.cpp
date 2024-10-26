@@ -37,6 +37,7 @@ namespace MyEngine {
 		++frame;
 		time += deltaTime;
 		_root->Update(deltaTime);
+		DestroyGameObject();
 	}
 
 	void Engine::Render()
@@ -62,5 +63,30 @@ namespace MyEngine {
 		_root->AddChild(ret);
 
 		return ret.get();
+	}
+
+	void Engine::DestroyGameObject() {
+		std::vector<std::shared_ptr<GameObject>> toDelete;
+
+		std::function<void(std::shared_ptr<GameObject>)> traverse = [&](std::shared_ptr<GameObject> obj) {
+			// Check if the current object is marked for deletion
+			if (obj->LowTierGod) {
+				toDelete.push_back(obj);
+			}
+			// Traverse children
+			for (const auto& child : obj->_children) {
+				traverse(child);
+			}
+			};
+
+		traverse(_root);
+
+		// Delete all objects marked for deletion
+		for (const auto& obj : toDelete) {
+			obj->DestroyThySelf();
+		}
+
+		//clear the vector
+		toDelete.clear();
 	}
 }

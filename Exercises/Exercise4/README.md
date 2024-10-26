@@ -1,6 +1,6 @@
 # Exercise 4
 
-## Setup
+## Setup - Cleared
 - Move the exercise folder folder inside SimpleRenderEngineProject
 - Add submission folder as subdirectory at the end of `SimpleRenderEngineProject/CMakeLists.txt`
 ```
@@ -19,7 +19,7 @@ add_subdirectory(GameProgramming24/Exercise4)
 
 ![main](media/main.png)
 
-## 4.1
+## 4.1 - Cleared
 Create a sprite sheet using [Texture Packer](www.codeandweb.com/texturepacker) (Free) using the
 sprites found in the Sprites directory. You will need sprites for SpaceShip, Asteroids/Meteors (3 sizes), Laser, and a bang. (Use the settings described in [include/sre/SpriteAtlas.hpp](www.codeandweb.com/texturepacker))
 https://github.com/mortennobel/SimpleRenderEngine/blob/master/include/sre/SpriteAtlas.hpp

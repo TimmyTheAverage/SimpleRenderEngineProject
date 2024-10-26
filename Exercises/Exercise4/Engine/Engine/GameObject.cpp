@@ -56,4 +56,12 @@ namespace MyEngine {
 	void GameObject::SetName(std::string p_name) {
 		_name = p_name;
 	}
+
+	void GameObject::DestroyThySelf() {
+		if (auto parent = _parent.lock()) {
+			parent->_children.remove_if([this](std::shared_ptr<GameObject> child) {
+				return child == _self.lock();
+				});
+		}
+	}
 }
